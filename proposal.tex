@@ -1,0 +1,64 @@
+\documentclass[10pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{url}
+\usepackage{titling}
+\setlength{\droptitle}{-2cm}
+
+
+
+\title{Socio-technical Factors for Automated Test Generation}
+%\author{Iftekhar Ahmed (ahmedi@oregonstate.edu)\\University of California, Irvine}
+
+\author{
+\begin{tabular}[t]{c@{\extracolsep{8em}}c} 
+Iftekhar Ahmed  & Alex Groce \\
+University of California, Irvine & Northern Arizona University \\
+ahmedi@oregonstate.edu & agroce@gmail.com
+\end{tabular}
+}
+
+%\author{Iftekhar Ahmed\\University of California, Irvine\\ahmedi@oregonstate.edu\\Alex Groce \\ Northern Arizona University\\agroce@gmail.com}
+
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Proposal}
+
+\subsection{Abstract}
+
+This project proposes to investigate the applicability of \emph{socio-technical} factors as automated test generation heuristic. In the first phase of this project, we will investigate the applicability of various \emph{socio-technical} factors i.e. statements involved in merge conflict, statements emitting specific bad code smells as automated test case generation heuristic as the effectiveness of these factors haven't been investigated for automated test generation though these \emph{socio-technical} factors have been proven to have significant impact on the overall code quality measured in terms of bug-proneness. Comparing the effectiveness of different \emph{socio-technical} factors as test case generation heuristics with traditionally used factors will also help to identify and evaluate the most suitable set of factors for generating testcases for limited time budget. It is of utmost important to identify automated test generation techniques that are proportional in execution and generation time to the \emph{size of the change} rather than to the \emph{size of the whole project}.
+
+
+\subsection{Problem Statement}
+Testing is an invaluable technique in ensuring that software is robust and reliable although there has been an exponential growth in the complexity of software and the cost of testing also has risen accordingly \cite{myers2011art}. We cannot exhaustively test these complex systems and also we don't know what faults exist apriori, so one of the ways to ensure quality lies in improved automated test case generation \cite{anand2013orchestrated,harman2012search}. Various properties have been used for generating test cases including
+structural \cite{tonella2004evolutionary}, functional \cite{wegener2004evaluation}, non-functional \cite{wegener1998verifying}, and state-based properties \cite{oh2011transition}. However, majority of these properties are technical in nature and this is a common pattern in various aspects of Software Engineering in general, for example there has been much research on predicting failures, those predictions usually concentrate
+either on the technical, or the social side of software development \cite{radjenovic2013software}.
+However, software development is not an isolated activity, it is a complex \emph{socio-technical} activity typically occurring concurrently and within the larger organizational goals and context. Development activity
+traces left behind in the code base, version control systems, issue trackers, and discussion forums allow us to understand these complex interactions. Researchers have recently started analyzing the complex interactions between \emph{socio-technical} factors for predicting failures but the applicability of these factors in automated test case generation is yet to be investigated.
+
+In our own work on identifying \emph{socio-technical} factors with fault prediction capability, we found that coordination in collaborative software development is inherently difficult because of the complex, invisible, and dynamic inter-dependencies among different software artifacts \cite{ahmedempirical}. That’s why synchronizing private development lines often leads to merge conflicts, which in turn is a significant factor when we model the bugginess of the lines of code. Moreover, we found that code involved in merge conflicts contain almost 3 times more design issues (one indicator of code quality that also has association with bug-proneness) than non-conflicting code. The primary idea behind this project is that \emph{socio-technical} factors have high fault proneness prediction capability and because of this characteristics, they should be strong candidates for automated test case generation. Moreover, when used in conjunction with other traditional factors, they should provide more effective test cases in terms of defect identification capability.  
+
+\subsection{Research Plan}
+
+\noindent {\bf \emph{Socio-technical} factor for test case generation:} Previous work on generating test cases investigated structural \cite{tonella2004evolutionary}, functional \cite{wegener2004evaluation}, non-functional \cite{wegener1998verifying}, and state-based properties \cite{oh2011transition}.Of these studies, none investigated the effectiveness of \emph{socio-technical} factors for test case generation. We propose to produce the first general, systematic examination of various \emph{socio-technical} factors for test case generation. First, we will use a large number of open source source projects collected from sources such as Github and after filtering for the mature open source projects using guidelines from existing research \cite{kalliamvakou2014promises}, we will generate tests using state-of-the-art automated test generation systems. Then we will generate tests for these projects using \emph{socio-technical} factors and compare their effectiveness in identifying real faults. For this purpose we will use existing benchmarks such as Defects4J \cite{just2014defects4j} and in case of absence of such benchmarks, we will curate our own bug data-set combining information from various sources such as bug tracking systems and patches submitted to the code base for fixing bugs identified using machine learning techniques \cite{ahmed2016can}. Second, we will use the existing manually written 
+tests collected from these projects and augment them by generating additional tests using both state-of-the-art automated test generation systems and \emph{socio-technical} factors in conjunction and separately. And compare their performance using the previously mentioned effectiveness measurement criteria of real faults in order to identify the best technique.
+
+\noindent {\bf \emph{Socio-technical} factors for \emph{limited budget} test case generation:} Depending on the results of the first part of the project, it may be possible to better tune automated test generation systems using only \emph{socio-technical} factors, or only traditional factors or a combination of them. Better understanding of the efficiency of the attributes will contribute towards coming up test generation techniques for limited time budget. It's important to investigate test generation techniques that are only proportional to the \emph{size of change} instead of the \emph{whole code base} and work well for limited time budget because the projects are growing bigger and more complex to test as whole in a limited time budget. Testing with a limited budget is also critical for using property-based testing in settings such as Travis CI, where many submodules of a large project may need to be tested, and the entire process, including downloading and building the code, is limited to 50 minutes (for private repos) or 120 minutes (for public repos) \cite{TravisDoc}. Researchers have been investigating lightweight automated test generation for a while \cite{groce2012lightweight}. QuickCheck \cite{claessen2011quickcheck} and other property based testing tools \cite{papadakis2011proper} offer on the fly automatic testing using random testing \cite{bohme2014efficiency}. Similar to traditional automated test generation, the focus here has been on using traditional criteria such as code coverage. However, testing methods that use coverage information, or even more expensive (and powerful) tools such as symbolic execution \cite{cadar2008klee} face an inherent limitation. For even a perfect method with capabilities for partitioning system behavior by faults, if the method has a cost (over that of random testing), it will be less effective than
+random testing, for some test budgets \cite{AutoEfficiency}. 
+
+Real-world techniques are not perfect in their defect targeting, and often impose considerable costs this is why performing symbolic execution only on seed tests, generated by some other method, is now a popular approach in both standard automated test generation and security-based fuzzing \cite{marinescu2012make}. Small-budget automated test generation, therefore, stands in need of more methods that improve on pure random testing but require no or minimal additional computational effort. Ideally, such methods should be able, like random testing, to work even without code coverage or other complex infrastructure. We hypothesize that if \emph{socio-technical} factors in isolation or in combination are effective in automated test case generation, then they can be used for generation of tests for a limited time budget as they require minimal computational effort. 
+
+\noindent{\bf Synergy:}  The proposed project fits well in the context our our group's ongoing work on using \emph{socio-technical} factors for fault prediction.
+
+\section{Data Policy}
+
+All analysis data from this project based on open source projects will be made public, along with analysis scripts, via GitHub or similar open source hosting solution.  Tools for mitigation will be hosted in the same way.  Depending on size of artifacts, only pointers to the actual repository artifact snapshots analyzed may be posted, rather than their full contents (since we expect to potentially analyze very large amounts of source code that is already accessible online).
+
+\bibliographystyle{abbrv}
+\bibliography{proposal}
+
+\end{document}
