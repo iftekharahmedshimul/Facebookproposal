@@ -4,20 +4,24 @@
 \usepackage{url}
 \usepackage{titling}
 %\setlength{\droptitle}{-2cm}
+\usepackage[compact]{titlesec}
+\titlespacing{\section}{0pt}{*0}{*0}
+\titlespacing{\subsection}{0pt}{*0}{*0}
+\titlespacing{\subsubsection}{0pt}{*0}{*0}
 
 
-
-\title{Socio-technical Factors for Automated Test Generation}
+\title{Socio-technical Factors for Automated Test Generation \vspace{-1ex}}
 
 
 \author{
   Iftekhar Ahmed\\
   University of California, Irvine\\
-  \texttt{ahmedi@oregonstate.edu}
+  \texttt{ahmedi@oregonstate.edu} \vspace{-4ex}
   \and
   Alex Groce\\
   Northern Arizona University\\
   \texttt{agroce@gmail.com}
+  \vspace{-4ex}
 }
 
 \date{}
@@ -29,17 +33,17 @@
 
 \subsection{Abstract}
 
-This project proposes to investigate the applicability of \emph{socio-technical} factors as automated test generation heuristics. In the first phase of this project, we will investigate the applicability of various \emph{socio-technical} factors: e.g., statements involved in merge conflicts, statements emitting specific bad code smells.   Such factors have not been used in automated test generation, although they have been proven to have significant impact on the overall quality of code, as measured in terms of proneness to bugs. Comparing the effectiveness of different \emph{socio-technical} factors as test case generation heuristics with traditionally purely technical code factors will also help to identify and evaluate the most suitable ways to generate effective test cases within a limited time budget.
+This project proposes to investigate the applicability of \emph{socio-technical} factors as automated test generation heuristics. In the first phase of this project, we will investigate the applicability of various \emph{socio-technical} factors: e.g., statements involved in merge conflicts, statements emitting specific bad code smells.   Such factors have not been used in automated test generation, although they have been proven to have significant impact on the overall quality of code, as measured in terms of proneness to bugs. In the second phase, comparing the effectiveness of different \emph{socio-technical} factors as test case generation heuristics along with traditionally used purely technical code factors will also help to identify and evaluate the most suitable ways to generate effective test cases within a limited time budget which is more suitable for incremental testing.
 
 
 %This project proposes to investigate the applicability of \emph{socio-technical} factors as automated test generation heuristic. In the first phase of this project, we will investigate the applicability of various \emph{socio-technical} factors i.e. statements involved in merge conflict, statements emitting specific bad code smells as automated test case generation heuristic as the effectiveness of these factors haven't been investigated for automated test generation though these \emph{socio-technical} factors have been proven to have significant impact on the overall code quality measured in terms of bug-proneness. Comparing the effectiveness of different \emph{socio-technical} factors as test case generation heuristics with traditionally used factors will also help to identify and evaluate the most suitable set of factors for generating testcases for limited time budget. It is of utmost important to identify automated test generation techniques that are proportional in execution and generation time to the \emph{size of the change} rather than to the \emph{size of the whole project}.
 
 
 \subsection{Problem Statement}
-Testing is an invaluable technique in ensuring that software is robust and reliable although there has been an exponential growth in the complexity of software and the cost of testing also has risen accordingly \cite{myers2011art}. We cannot exhaustively test these complex systems and also we don't know what faults exist apriori, so one of the ways to ensure quality lies in improved automated test case generation \cite{anand2013orchestrated,harman2012search}. Various properties have been used for generating test cases including
-structural \cite{tonella2004evolutionary}, functional \cite{wegener2004evaluation}, non-functional \cite{wegener1998verifying}, and state-based properties \cite{oh2011transition}. However, majority of these properties are technical in nature and this is a common pattern in various aspects of Software Engineering in general, for example there has been much research on predicting failures, those predictions usually concentrate
-either on the technical, or the social side of software development \cite{radjenovic2013software}.
-However, software development is not an isolated activity, it is a complex \emph{socio-technical} activity typically occurring concurrently and within the larger organizational goals and context. Development activity
+Testing is an invaluable technique in ensuring that software is robust and reliable although there has been an exponential growth in the complexity of software and the cost of testing also has risen accordingly \cite{myers2011art}. We cannot exhaustively test these complex systems using manually written test case, so one of the ways to ensure quality lies in improved automated test case generation \cite{anand2013orchestrated,harman2012search}. Various properties have been used for generating test cases including
+structural \cite{tonella2004evolutionary}, functional \cite{wegener2004evaluation}, non-functional \cite{wegener1998verifying}, and state-based properties \cite{oh2011transition}. 
+%However, majority of these properties are technical in nature and this is a common pattern in various aspects of Software Engineering in general, for example there has been much research on predicting failures, those predictions usually concentrate either on the technical, or the social side of software development \cite{radjenovic2013software}.
+Majority of these properties are technical in nature, however, software development is not a purely technical activity, it is a complex \emph{socio-technical} activity typically occurring concurrently and within the larger organizational goals and context. Development activity
 traces left behind in the code base, version control systems, issue trackers, and discussion forums allow us to understand these complex interactions. Researchers have recently started analyzing the complex interactions between \emph{socio-technical} factors for predicting failures but the applicability of these factors in automated test case generation is yet to be investigated.
 
 In our own work on identifying \emph{socio-technical} factors with fault prediction capability, we found that coordination in collaborative software development is inherently difficult because of the complex, invisible, and dynamic inter-dependencies among different software artifacts \cite{ahmedempirical}. That’s why synchronizing private development lines often leads to merge conflicts, which in turn is a significant factor when we model the bugginess of the lines of code. Moreover, we found that code involved in merge conflicts contain almost 3 times more design issues (one indicator of code quality that also has association with bug-proneness) than non-conflicting code. The primary idea behind this project is that \emph{socio-technical} factors have high fault proneness prediction capability and because of this characteristics, they should be strong candidates for automated test case generation. Moreover, when used in conjunction with other traditional factors, they should provide more effective test cases in terms of defect identification capability.  
